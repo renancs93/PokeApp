@@ -19,10 +19,11 @@ namespace PokeApp
         {
             InitializeComponent();
 
-
             List<Pokemon> lista = PokeApi.listaPokemons(null);
-
             lstPokemons.ItemsSource = lista;
         }
+
+        
+
     }
 }
