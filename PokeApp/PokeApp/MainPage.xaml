@@ -14,7 +14,12 @@
         <Image Source="pokemon_logo" />
 
         <Frame BackgroundColor="#4d94ff" CornerRadius="15" Padding="0" Margin="5">
-            <SearchBar x:Name="txtBusca" TextColor="White" PlaceholderColor="White" Placeholder="Buscar"></SearchBar>
+            <SearchBar x:Name="txtBusca"
+                       SearchButtonPressed="txtBusca_SearchButtonPressed"
+                       TextColor="White" 
+                       PlaceholderColor="White" 
+                       Placeholder="Buscar">
+            </SearchBar>
         </Frame>
         
         <ListView x:Name="lstPokemons">

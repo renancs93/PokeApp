@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace PokeApp
@@ -19,11 +20,34 @@ namespace PokeApp
         {
             InitializeComponent();
 
-            List<Pokemon> lista = PokeApi.listaPokemons(null);
+            List<Form> lista = PokeApi.listaPokemons();
             lstPokemons.ItemsSource = lista;
         }
 
-        
+        //private async Task txtBusca_SearchButtonPressedAsync(object sender, EventArgs e)
+        //{
+        //    if (txtBusca.Text.Trim() != "")
+        //    {
+        //        List<Pokemon> x = await PokeApi.buscarPokemon(txtBusca.Text.Trim());
 
+        //        lstPokemons.ItemsSource = x;
+        //    }
+                
+        //}
+
+        private async void txtBusca_SearchButtonPressed(object sender, EventArgs e)
+        {
+            if (txtBusca.Text.Trim() != "")
+            {
+                List<Form> x = await PokeApi.buscarPokemon(txtBusca.Text.Trim());
+
+                lstPokemons.ItemsSource = x;
+            }
+            else
+            {
+                List<Form> lista = PokeApi.listaPokemons();
+                lstPokemons.ItemsSource = lista;
+            }
+        }
     }
 }
