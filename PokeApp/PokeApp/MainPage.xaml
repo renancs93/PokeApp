@@ -4,13 +4,33 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="PokeApp.MainPage">
+             x:Class="PokeApp.MainPage"
+             Visual="Material"
+             BackgroundImageSource="pokemon_background"
+             >
 
     <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
+
+        <Image Source="pokemon_logo" />
+
+        <ListView x:Name="lstPokemons">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout VerticalOptions="Center" Margin="10, 0, 10, 0">
+                            <Label Text="{Binding name}" 
+                               FontSize="Large" 
+                               TextColor="Blue"
+                               >
+                            </Label>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
+        
+        
     </StackLayout>
 
 </ContentPage>

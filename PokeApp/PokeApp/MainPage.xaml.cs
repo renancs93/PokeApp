@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PokeApp.Model;
+using PokeApp.Service;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -16,6 +18,11 @@ namespace PokeApp
         public MainPage()
         {
             InitializeComponent();
+
+
+            List<Pokemon> lista = PokeApi.listaPokemons(null);
+
+            lstPokemons.ItemsSource = lista;
         }
     }
 }
