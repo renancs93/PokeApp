@@ -20,33 +20,27 @@ namespace PokeApp
         {
             InitializeComponent();
 
-            List<Form> lista = PokeApi.listaPokemons();
-            lstPokemons.ItemsSource = lista;
+            carregamentoInicial();
         }
 
-        //private async Task txtBusca_SearchButtonPressedAsync(object sender, EventArgs e)
-        //{
-        //    if (txtBusca.Text.Trim() != "")
-        //    {
-        //        List<Pokemon> x = await PokeApi.buscarPokemon(txtBusca.Text.Trim());
-
-        //        lstPokemons.ItemsSource = x;
-        //    }
-                
-        //}
+        private async void carregamentoInicial()
+        {
+            //List<Form> lista = PokeApi.listaPokemons();
+            RootObject lista = await PokeApi.listaPokemons();
+            lstPokemons.ItemsSource = lista.results;
+        }
 
         private async void txtBusca_SearchButtonPressed(object sender, EventArgs e)
         {
             if (txtBusca.Text.Trim() != "")
             {
-                List<Form> x = await PokeApi.buscarPokemon(txtBusca.Text.Trim());
+                RootObject pokemon = await PokeApi.buscarPokemon(txtBusca.Text.Trim());
 
-                lstPokemons.ItemsSource = x;
+                lstPokemons.ItemsSource = pokemon.forms;
             }
             else
             {
-                List<Form> lista = PokeApi.listaPokemons();
-                lstPokemons.ItemsSource = lista;
+                carregamentoInicial();
             }
         }
     }
