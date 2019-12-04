@@ -19,7 +19,18 @@ namespace PokeApp.Model
 
     public class Form
     {
-        public string name { get; set; }
+        private string name;
+        public string Name
+        {
+            get
+            {
+                return name.ToUpper();
+            }
+            set
+            {
+                name = value;
+            }
+        }
         public string url { get; set; }
     }
 

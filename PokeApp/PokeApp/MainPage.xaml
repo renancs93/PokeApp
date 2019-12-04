@@ -7,29 +7,31 @@
              x:Class="PokeApp.MainPage"
              Visual="Material"
              BackgroundImageSource="pokemon_background"
+             Title="PokeApp"
              >
 
     <StackLayout>
 
         <Image Source="pokemon_logo" />
 
-        <Frame BackgroundColor="#4d94ff" CornerRadius="15" Padding="0" Margin="5">
+        <Frame BackgroundColor="#0080ff" CornerRadius="15" Padding="0" Margin="5">
             <SearchBar x:Name="txtBusca"
                        SearchButtonPressed="txtBusca_SearchButtonPressed"
-                       TextColor="White" 
+                       TextColor="White"
                        PlaceholderColor="White" 
                        Placeholder="Buscar">
             </SearchBar>
         </Frame>
-        
-        <ListView x:Name="lstPokemons">
+
+        <ListView x:Name="lstPokemons" ItemSelected="lstPokemons_ItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout VerticalOptions="Center" Margin="10, 0, 10, 0">
-                            <Label Text="{Binding name}" 
+                            <Label Text="{Binding Name}"
                                FontSize="Large" 
                                TextColor="Blue"
+                               FontAttributes="Bold"
                                >
                             </Label>
                         </StackLayout>

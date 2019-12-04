@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="PokeApp.DetailPage"
+             Visual="Material"
+             Title="Detalhes"
+             >
+    <ContentPage.Content>
+
+        <StackLayout>
+
+            <!--<FlexLayout Direction="Row">
+                <Label BackgroundColor="Red" FontSize="Large" Text="Nome:"></Label>
+                <Label BackgroundColor="Blue" FontSize="Large" Text="Nome" HorizontalOptions="StartAndExpand"></Label>
+            </FlexLayout>-->
+
+            <Frame BorderColor="Black" Margin="10">
+                <StackLayout>
+                    <Image Source="pokebola.png" Aspect="AspectFit" x:Name="poke_imagem" WidthRequest="100" HeightRequest="150" BackgroundColor="Transparent"/>
+                    <Entry x:Name="poke_id" Placeholder="ID" IsEnabled="False" WidthRequest="15" />
+                    <Entry x:Name="poke_name" Placeholder="Nome" IsEnabled="False" />
+                    <Entry x:Name="poke_weight" Placeholder="Peso" IsEnabled="False" />
+                    <Entry x:Name="poke_height" Placeholder="Altura" IsEnabled="False" />
+                </StackLayout>
+            </Frame>
+
+            <Button x:Name="MoreInfo"
+                    Text="Mais Informações"
+                    Margin="10, 0"
+                    CornerRadius="25"
+                    BackgroundColor="#0080ff"
+                    >
+            </Button>
+            
+        </StackLayout>
+        
+        
+    </ContentPage.Content>
+</ContentPage>

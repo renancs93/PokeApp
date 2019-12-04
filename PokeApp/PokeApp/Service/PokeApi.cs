@@ -83,5 +83,29 @@ namespace PokeApp.Service
             return ret;
         }
 
+        public static async Task<RootObject> getDadosPokemon(string url)
+        {
+            RootObject ret = new RootObject();
+
+            if (url.Trim() != "")
+            {
+                string consulta = url;
+
+                HttpClient client = new HttpClient();
+                try
+                {
+                    var content = await client.GetStringAsync(consulta);
+                    ret = JsonConvert.DeserializeObject<RootObject>(content);
+                }
+                catch
+                {
+
+                }
+            }
+
+            return ret;
+        }
+
+
     }
 }

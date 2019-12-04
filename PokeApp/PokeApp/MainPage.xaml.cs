@@ -43,5 +43,17 @@ namespace PokeApp
                 carregamentoInicial();
             }
         }
+
+        private void lstPokemons_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e == null)
+                return;
+
+            var detailPage = new DetailPage(e.SelectedItem as Form);
+            //detailPage.BindingContext = e.SelectedItem as Form;
+
+            Navigation.PushAsync(detailPage, true);
+
+        }
     }
 }
