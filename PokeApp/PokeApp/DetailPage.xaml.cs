@@ -45,5 +45,10 @@ namespace PokeApp
             }
         }
 
+        private void MoreInfo_Clicked(object sender, EventArgs e)
+        {
+            InformationPage infoPage = new InformationPage(formPoke.Name);
+            Navigation.PushAsync(infoPage, true);
+        }
     }
 }

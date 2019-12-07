@@ -14,27 +14,6 @@ namespace PokeApp.Service
         private static String URL_BASE = "https://pokeapi.co/api/v2";
 
 
-        //public static List<Form> listaPokemons()
-        //{
-        //    List<Form> lstPokemon = new List<Form>();
-        //    string consulta =  string.Format("{0}/{1}", URL_BASE, "/pokemon");
-
-        //    WebClient client = new WebClient();
-        //    try
-        //    {
-        //        var content = client.DownloadString(consulta);
-        //        var result = JsonConvert.DeserializeObject<RootObject>(content);
-
-        //        lstPokemon = result.results;
-        //    }
-        //    catch
-        //    {
-
-        //    }
-
-        //    return lstPokemon;
-        //}
-
         public static async Task<RootObject> listaPokemons()
         {
             //List<Form> lstPokemon = new List<Form>();
@@ -56,7 +35,6 @@ namespace PokeApp.Service
 
             return ret;
         }
-
 
         public static async Task<RootObject> buscarPokemon(string name)
         {
