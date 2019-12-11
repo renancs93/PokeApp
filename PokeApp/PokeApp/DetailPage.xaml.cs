@@ -36,12 +36,25 @@ namespace PokeApp
             {
                 RootObject pokemon = await PokeApi.getDadosPokemon(formPoke.url);
 
-                poke_id.Text = pokemon.id.ToString();
+                poke_imagem.Source = pokemon.sprites.front_default; //ImageSource.FromUri(new Uri(pokemon.sprites.front_default));
                 poke_name.Text = pokemon.name.ToUpper();
                 poke_weight.Text = pokemon.weight.ToString();
                 poke_height.Text = pokemon.height.ToString();
 
-                poke_imagem.Source = pokemon.sprites.front_default; //ImageSource.FromUri(new Uri(pokemon.sprites.front_default));
+                StringBuilder types = new StringBuilder();
+                if (pokemon.types != null)
+                {
+                    foreach (var item in pokemon.types)
+                    {
+                        types.Append(item.type.name).Append(" - ");
+                    }
+                    types.Remove(types.Length - 3, 3);
+                    
+                }
+                else
+                    types.Append("-");
+
+                poke_types.Text = types.ToString().ToUpper();
             }
         }
 

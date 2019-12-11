@@ -14,9 +14,10 @@
 
         <Image Source="pokemon_logo" />
 
+        <!--SearchButtonPressed="txtBusca_SearchButtonPressed"-->
         <Frame BackgroundColor="#0080ff" CornerRadius="15" Padding="0" Margin="5">
             <SearchBar x:Name="txtBusca"
-                       SearchButtonPressed="txtBusca_SearchButtonPressed"
+                       TextChanged="txtBusca_TextChanged"
                        TextColor="White"
                        PlaceholderColor="White" 
                        Placeholder="Buscar">

@@ -3,10 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PokeApp.InformationPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label x:Name="lblPrinc" Text="Welcome to te Information Page"
+        <ScrollView>
+            <StackLayout>
+               
+                <FlexLayout Margin="15" Direction="Row" JustifyContent="SpaceAround" AlignItems="Center">
+                    <Image Aspect="AspectFill" x:Name="imgBackShiny" Source="pokebola.png" WidthRequest="80" HeightRequest="80"></Image>
+                    <Image Aspect="AspectFill" x:Name="imgFrontShiny" Source="pokebola.png" WidthRequest="80" HeightRequest="80"></Image>
+                    <Image Aspect="AspectFill" x:Name="imgFrontDefault" Source="pokebola.png" WidthRequest="80" HeightRequest="80"></Image>
+                    <Image Aspect="AspectFill" x:Name="imgBackDefault" Source="pokebola.png" WidthRequest="80" HeightRequest="80"></Image>
+                </FlexLayout>
+
+                <Label x:Name="lblPrinc" Text="Welcome to te Information Page"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

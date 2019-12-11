@@ -24,6 +24,9 @@ namespace PokeApp
         private async void setup(string pPokenName) {
             PokeApiClient pokeClient = new PokeApiClient();
             Pokemon pokemon = await pokeClient.GetResourceAsync<Pokemon>(pPokenName);
+
+            setImages(pokemon.Sprites);
+
             //List<Move> lstMovimentos = await pokeClient.GetResourceAsync(pokemon.Moves.Select(move => move.Move));
 
             List<Ability> lstHabilidade = await pokeClient.GetResourceAsync(pokemon.Abilities.Select(item => item.Ability));
@@ -41,5 +44,16 @@ namespace PokeApp
 
             lblPrinc.Text = blr.ToString();
         }
+
+        public void setImages(PokemonSprites pokemonSprites)
+        {
+            imgBackShiny.Source = pokemonSprites.BackShiny;
+            imgBackDefault.Source = pokemonSprites.BackDefault;
+            imgFrontDefault.Source = pokemonSprites.FrontDefault;
+            imgFrontShiny.Source = pokemonSprites.FrontShiny;
+
+        }
+
+       
 	}
 }

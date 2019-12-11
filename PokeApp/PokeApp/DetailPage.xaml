@@ -20,8 +20,8 @@
                 <Frame BorderColor="Black" Margin="10">
                     <StackLayout>
                         <Image Source="pokebola.png" Aspect="AspectFit" x:Name="poke_imagem" WidthRequest="80" HeightRequest="120" BackgroundColor="Transparent"/>
-                        <Entry x:Name="poke_id" Placeholder="ID" IsEnabled="False" WidthRequest="15" />
                         <Entry x:Name="poke_name" Placeholder="Nome" IsEnabled="False" />
+                        <Entry x:Name="poke_types" Placeholder="Tipos" IsEnabled="False" />
                         <Entry x:Name="poke_weight" Placeholder="Peso" IsEnabled="False" />
                         <Entry x:Name="poke_height" Placeholder="Altura" IsEnabled="False" />
                     </StackLayout>

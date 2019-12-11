@@ -30,18 +30,41 @@ namespace PokeApp
             lstPokemons.ItemsSource = lista.results;
         }
 
-        private async void txtBusca_SearchButtonPressed(object sender, EventArgs e)
-        {
-            if (txtBusca.Text.Trim() != "")
-            {
-                RootObject pokemon = await PokeApi.buscarPokemon(txtBusca.Text.Trim());
+        //private async void txtBusca_SearchButtonPressed(object sender, EventArgs e)
+        //{
+        //    string busca = txtBusca.Text.ToLower().Trim();
 
-                lstPokemons.ItemsSource = pokemon.forms;
-            }
-            else
+        //    if (busca != "")
+        //    {
+        //        RootObject pokemon = await PokeApi.buscarPokemon(busca);
+
+        //        lstPokemons.ItemsSource = pokemon.forms;
+        //    }
+        //    else
+        //    {
+        //        carregamentoInicial();
+        //    }
+        //}
+
+        private async void txtBusca_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
             {
-                carregamentoInicial();
+                string busca = txtBusca.Text.ToLower().Trim();
+
+                if(busca.Length > 2)
+                {
+                    RootObject pokemon = await PokeApi.buscarPokemon(busca);
+                    lstPokemons.ItemsSource = pokemon.forms;
+                }
+                if(busca.Length == 0)
+                {
+                    carregamentoInicial();
+                }
+
             }
+            catch {}
+
         }
 
         private void lstPokemons_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -50,10 +73,9 @@ namespace PokeApp
                 return;
 
             var detailPage = new DetailPage(e.SelectedItem as Form);
-            //detailPage.BindingContext = e.SelectedItem as Form;
-
             Navigation.PushAsync(detailPage, true);
-
         }
+
+        
     }
 }
