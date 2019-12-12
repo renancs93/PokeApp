@@ -1,21 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PokeApp.InformationPage">
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="PokeApp.InformationPage"
+             Visual="Material"
+             Title="Info">
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
                
                 <FlexLayout Margin="15" Direction="Row" JustifyContent="SpaceAround" AlignItems="Center">
-                    <Image Aspect="AspectFill" x:Name="imgBackShiny" Source="pokebola.png" WidthRequest="80" HeightRequest="80"></Image>
-                    <Image Aspect="AspectFill" x:Name="imgFrontShiny" Source="pokebola.png" WidthRequest="80" HeightRequest="80"></Image>
                     <Image Aspect="AspectFill" x:Name="imgFrontDefault" Source="pokebola.png" WidthRequest="80" HeightRequest="80"></Image>
                     <Image Aspect="AspectFill" x:Name="imgBackDefault" Source="pokebola.png" WidthRequest="80" HeightRequest="80"></Image>
+                    <Image Aspect="AspectFill" x:Name="imgBackShiny" Source="pokebola.png" WidthRequest="80" HeightRequest="80"></Image>
+                    <Image Aspect="AspectFill" x:Name="imgFrontShiny" Source="pokebola.png" WidthRequest="80" HeightRequest="80"></Image>
                 </FlexLayout>
 
-                <Label x:Name="lblPrinc" Text="Welcome to te Information Page"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+                <Frame BorderColor="Black" Margin="10">
+                    <StackLayout>
+                        <Entry x:Name="poke_habitat" Placeholder="Habitat" IsEnabled="False" />
+                        <Editor x:Name="poke_lstHabilidades" Placeholder="Habilidades" IsEnabled="False" AutoSize="TextChanges" />
+                        <Editor x:Name="poke_lstItens" Placeholder="Itens" IsEnabled="False" AutoSize="TextChanges" />
+                    </StackLayout>
+                </Frame>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

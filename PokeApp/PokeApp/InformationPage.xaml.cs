@@ -17,43 +17,51 @@ namespace PokeApp
 		public InformationPage (String pPokemonName)
 		{
 			InitializeComponent();
-            //lblPrinc.Text = pPokemonName;
             setup(pPokemonName);
         }
 
         private async void setup(string pPokenName) {
             PokeApiClient pokeClient = new PokeApiClient();
             Pokemon pokemon = await pokeClient.GetResourceAsync<Pokemon>(pPokenName);
-
-            setImages(pokemon.Sprites);
-
-            //List<Move> lstMovimentos = await pokeClient.GetResourceAsync(pokemon.Moves.Select(move => move.Move));
-
+            PokemonSpecies species = await pokeClient.GetResourceAsync(pokemon.Species);
+            List<Item> lstItens = await pokeClient.GetResourceAsync(pokemon.HeldItems.Select(item => item.Item));
             List<Ability> lstHabilidade = await pokeClient.GetResourceAsync(pokemon.Abilities.Select(item => item.Ability));
 
-            //PokemonSpecies species = await pokeClient.GetResourceAsync(pokemon.Species);
 
-            StringBuilder blr = new StringBuilder();
+            StringBuilder bldrItens = new StringBuilder();
+            if (lstItens.Count > 0)
+            {
+                foreach (Item item in lstItens)
+                    bldrItens.Append(item.Name).Append(", ");
 
-            foreach (Ability hab in lstHabilidade) {
-                
-                blr.Append(hab.Name).Append(" - ");
+                bldrItens.Remove(bldrItens.Length - 2, 2);
             }
+            else
+                bldrItens.Append("N/A");
 
-            blr.Remove(blr.Length - 3, 3);
+            StringBuilder bldrHabilidades = new StringBuilder();
+            if (lstHabilidade.Count > 0)
+            {
+                foreach (Ability habilidade in lstHabilidade)
+                    bldrHabilidades.Append(habilidade.Name).Append(", ");
 
-            lblPrinc.Text = blr.ToString();
+                bldrHabilidades.Remove(bldrHabilidades.Length - 2, 2);
+            }
+            else
+                bldrHabilidades.Append("N/A");
+
+            setImages(pokemon.Sprites);
+            poke_habitat.Text = species.Habitat.Name.ToUpper();
+            poke_lstHabilidades.Text = bldrHabilidades.ToString().ToUpper();
+            poke_lstItens.Text = bldrItens.ToString().ToUpper();
         }
 
         public void setImages(PokemonSprites pokemonSprites)
         {
             imgBackShiny.Source = pokemonSprites.BackShiny;
-            imgBackDefault.Source = pokemonSprites.BackDefault;
-            imgFrontDefault.Source = pokemonSprites.FrontDefault;
             imgFrontShiny.Source = pokemonSprites.FrontShiny;
-
+            imgFrontDefault.Source = pokemonSprites.FrontDefault;
+            imgBackDefault.Source = pokemonSprites.BackDefault;
         }
-
-       
 	}
 }
