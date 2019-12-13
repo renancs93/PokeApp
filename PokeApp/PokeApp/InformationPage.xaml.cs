@@ -14,9 +14,12 @@ namespace PokeApp
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class InformationPage : ContentPage
 	{
-		public InformationPage (String pPokemonName)
+        
+        public InformationPage (String pPokemonName)
 		{
 			InitializeComponent();
+            PokeName.Text = pPokemonName;
+
             setup(pPokemonName);
         }
 

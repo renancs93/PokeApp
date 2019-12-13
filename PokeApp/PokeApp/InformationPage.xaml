@@ -20,6 +20,9 @@
 
                 <Frame BorderColor="Black" Margin="10">
                     <StackLayout>
+
+                        <Label x:Name="PokeName" FontSize="Title" HorizontalTextAlignment="Center" FontAttributes="Bold" TextColor="Blue"/>
+
                         <Entry x:Name="poke_habitat" Placeholder="Habitat" IsEnabled="False" />
                         <Editor x:Name="poke_lstHabilidades" Placeholder="Habilidades" IsEnabled="False" AutoSize="TextChanges" />
                         <Editor x:Name="poke_lstItens" Placeholder="Itens" IsEnabled="False" AutoSize="TextChanges" />

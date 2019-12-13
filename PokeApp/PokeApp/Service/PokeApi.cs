@@ -52,12 +52,9 @@ namespace PokeApp.Service
                     var content = await client.GetStringAsync(consulta);
                     ret = JsonConvert.DeserializeObject<RootObject>(content);
                 }
-                catch
-                {
-
-                }
+                catch{}
             }
-            
+
             return ret;
         }
 

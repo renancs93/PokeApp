@@ -1,4 +1,6 @@
-﻿using PokeApp.Model;
+﻿using PokeApiNet;
+using PokeApiNet.Models;
+using PokeApp.Model;
 using PokeApp.Service;
 using System;
 using System.Collections.Generic;
@@ -14,39 +16,42 @@ namespace PokeApp
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DetailPage : ContentPage
     {
-        Form formPoke;
+        //Form formPoke;
+        string namePoke = "";
+        int idPoke = 0;
 
         public DetailPage()
         {
             InitializeComponent();
         }
 
-        public DetailPage(Form form)
+        public DetailPage(string namePoke)
         {
             InitializeComponent();
-
-            formPoke = form;
-
-            setup(formPoke);
+            this.namePoke = namePoke;
+            setup(namePoke);
         }
 
-        public async void setup(Form formPoke)
+        public async void setup(string pokeName)
         {
-            if(formPoke != null)
+            if(pokeName != "")
             {
-                RootObject pokemon = await PokeApi.getDadosPokemon(formPoke.url);
+                //RootObject pokemon = await PokeApi.getDadosPokemon(formPoke.url);
+                PokeApiClient pokeClient = new PokeApiClient();
+                Pokemon pokemon = await pokeClient.GetResourceAsync<Pokemon>(pokeName);
 
-                poke_imagem.Source = pokemon.sprites.front_default; //ImageSource.FromUri(new Uri(pokemon.sprites.front_default));
-                poke_name.Text = pokemon.name.ToUpper();
-                poke_weight.Text = pokemon.weight.ToString();
-                poke_height.Text = pokemon.height.ToString();
+                this.idPoke = pokemon.Id;
+                poke_imagem.Source = pokemon.Sprites.FrontDefault; //ImageSource.FromUri(new Uri(pokemon.sprites.front_default));
+                poke_name.Text = pokemon.Name.ToUpper();
+                poke_weight.Text = pokemon.Weight.ToString();
+                poke_height.Text = pokemon.Height.ToString();
 
                 StringBuilder types = new StringBuilder();
-                if (pokemon.types != null)
+                if (pokemon.Types != null)
                 {
-                    foreach (var item in pokemon.types)
+                    foreach (var item in pokemon.Types)
                     {
-                        types.Append(item.type.name).Append(" - ");
+                        types.Append(item.Type.Name).Append(" - ");
                     }
                     types.Remove(types.Length - 3, 3);
                     
@@ -60,7 +65,7 @@ namespace PokeApp
 
         private void MoreInfo_Clicked(object sender, EventArgs e)
         {
-            InformationPage infoPage = new InformationPage(formPoke.Name);
+            InformationPage infoPage = new InformationPage(namePoke);
             Navigation.PushAsync(infoPage, true);
         }
     }

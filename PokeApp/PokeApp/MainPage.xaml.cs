@@ -69,11 +69,13 @@ namespace PokeApp
 
         private void lstPokemons_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            if (e == null)
-                return;
+            var poke = e.SelectedItem as Form;
 
-            var detailPage = new DetailPage(e.SelectedItem as Form);
-            Navigation.PushAsync(detailPage, true);
+            if (poke != null)
+            {
+                var detailPage = new DetailPage(poke.Name);
+                Navigation.PushAsync(detailPage, true);
+            }
         }
 
         
