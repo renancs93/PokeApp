@@ -55,6 +55,7 @@ namespace PokeApp
 
             setImages(pokemon.Sprites);
             poke_habitat.Text = species.Habitat.Name.ToUpper();
+            poke_baseExp.Text = pokemon.BaseExperience.ToString();
             poke_lstHabilidades.Text = bldrHabilidades.ToString().ToUpper();
             poke_lstItens.Text = bldrItens.ToString().ToUpper();
         }

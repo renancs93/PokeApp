@@ -1,4 +1,6 @@
-﻿using PokeApp.Model;
+﻿using PokeApiNet;
+using PokeApiNet.Models;
+using PokeApp.Model;
 using PokeApp.Service;
 using System;
 using System.Collections.Generic;
@@ -16,18 +18,24 @@ namespace PokeApp
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
+        PokeApiClient pokeClient = new PokeApiClient();
+
+        int page = 1;
+
         public MainPage()
         {
             InitializeComponent();
-
+            
             carregamentoInicial();
         }
 
         private async void carregamentoInicial()
         {
-            //List<Form> lista = PokeApi.listaPokemons();
-            RootObject lista = await PokeApi.listaPokemons();
-            lstPokemons.ItemsSource = lista.results;
+            NamedApiResourceList<Pokemon> listaFull = await pokeClient.GetNamedResourcePageAsync<Pokemon>(25, page);
+
+            //RootObject lista = await PokeApi.listaPokemons();
+
+            lstPokemons.ItemsSource = listaFull.Results;
         }
 
         //private async void txtBusca_SearchButtonPressed(object sender, EventArgs e)
@@ -54,10 +62,11 @@ namespace PokeApp
 
                 if(busca.Length > 2)
                 {
-                    RootObject pokemon = await PokeApi.buscarPokemon(busca);
-                    lstPokemons.ItemsSource = pokemon.forms;
+                    //RootObject pokemon = await PokeApi.buscarPokemon(busca);
+                    Pokemon pokemon = await pokeClient.GetResourceAsync<Pokemon>(busca);
+                    lstPokemons.ItemsSource = pokemon.Forms;
                 }
-                if(busca.Length == 0)
+                if (busca.Length == 0)
                 {
                     carregamentoInicial();
                 }
@@ -69,13 +78,24 @@ namespace PokeApp
 
         private void lstPokemons_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var poke = e.SelectedItem as Form;
-
-            if (poke != null)
+            if (e.SelectedItem == null)
             {
-                var detailPage = new DetailPage(poke.Name);
-                Navigation.PushAsync(detailPage, true);
+                return;
             }
+
+            try
+            {
+                //var poke = e.SelectedItem as Form;
+                var poke = e.SelectedItem as NamedApiResource<Pokemon>;
+                var pokeF = e.SelectedItem as NamedApiResource<PokemonForm>;
+
+                if (poke != null || pokeF != null)
+                {
+                    var detailPage = new DetailPage(poke != null? poke.Name : pokeF.Name);
+                    Navigation.PushAsync(detailPage, true);
+                }
+            }
+            catch { }
         }
 
         
