@@ -1,14 +1,9 @@
 ﻿using PokeApiNet;
 using PokeApiNet.Models;
-using PokeApp.Model;
-using PokeApp.Service;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
+using System.Threading;
 using Xamarin.Forms;
 
 namespace PokeApp
@@ -19,6 +14,7 @@ namespace PokeApp
     public partial class MainPage : ContentPage
     {
         PokeApiClient pokeClient = new PokeApiClient();
+        private readonly DebounceHelper debounceHelper;
 
         int page = 1;
 
@@ -27,6 +23,7 @@ namespace PokeApp
             InitializeComponent();
             
             carregamentoInicial();
+            debounceHelper = new DebounceHelper(TimeSpan.FromMilliseconds(500), ExecuteSearch);
         }
 
         private async void carregamentoInicial()
@@ -38,29 +35,18 @@ namespace PokeApp
             lstPokemons.ItemsSource = listaFull.Results;
         }
 
-        //private async void txtBusca_SearchButtonPressed(object sender, EventArgs e)
-        //{
-        //    string busca = txtBusca.Text.ToLower().Trim();
+        private void txtBusca_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            debounceHelper.Debounce(e.NewTextValue);
+        }
 
-        //    if (busca != "")
-        //    {
-        //        RootObject pokemon = await PokeApi.buscarPokemon(busca);
-
-        //        lstPokemons.ItemsSource = pokemon.forms;
-        //    }
-        //    else
-        //    {
-        //        carregamentoInicial();
-        //    }
-        //}
-
-        private async void txtBusca_TextChanged(object sender, TextChangedEventArgs e)
+        private async void ExecuteSearch(string query)
         {
             try
             {
-                string busca = txtBusca.Text.ToLower().Trim();
+                string busca = query.ToLower().Trim();
 
-                if(busca.Length > 2)
+                if (busca.Length > 2)
                 {
                     //RootObject pokemon = await PokeApi.buscarPokemon(busca);
                     Pokemon pokemon = await pokeClient.GetResourceAsync<Pokemon>(busca);
@@ -72,8 +58,10 @@ namespace PokeApp
                 }
 
             }
-            catch {}
+            catch (Exception ex)
+            {
 
+            }
         }
 
         private void lstPokemons_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -99,5 +87,46 @@ namespace PokeApp
         }
 
         
+    }
+
+    public class DebounceHelper
+    {
+        private readonly TimeSpan delay;
+        private readonly Action<string> action;
+        private CancellationTokenSource cts;
+
+        public DebounceHelper(TimeSpan delay, Action<string> action)
+        {
+            this.delay = delay;
+            this.action = action;
+            cts = new CancellationTokenSource();
+        }
+
+        public void Debounce(string text)
+        {
+            // Cancelar qualquer execução anterior pendente
+            cts.Cancel();
+            cts = new CancellationTokenSource();
+
+            // Agendar a execução após o atraso
+            _ = ScheduleExecution(text, cts.Token);
+        }
+
+        private async Task ScheduleExecution(string text, CancellationToken cancellationToken)
+        {
+            try
+            {
+                // Aguardar o atraso
+                await Task.Delay(delay, cancellationToken);
+
+                // Se não foi cancelado, executar a ação
+                if (!cancellationToken.IsCancellationRequested)
+                    action(text);
+            }
+            catch (TaskCanceledException)
+            {
+                // A tarefa foi cancelada, não faz nada
+            }
+        }
     }
 }
